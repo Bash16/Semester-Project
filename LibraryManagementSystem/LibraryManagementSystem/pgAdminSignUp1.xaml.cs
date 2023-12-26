@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,11 +27,45 @@ namespace LibraryManagementSystem
             InitializeComponent();
             mainFrame = frame;
         }
+        
+        private string connectionString = "Data Source=DESKTOP-ERUUV97\\SQLEXPRESS;Initial Catalog=LibraryDB;Integrated Security=True";
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            pgAdminSignUp2 pg = new pgAdminSignUp2(mainFrame);
-            mainFrame.Content = pg;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Validate admin password against the database
+                    string query = "SELECT COUNT(*) FROM Administrator WHERE [Password] = @Password";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Password", txtPassword.Password);
+
+                        int count = (int)command.ExecuteScalar();
+
+                        if (count > 0)
+                        {
+                            MessageBox.Show("Admin authentication successful!");
+                            
+                            pgAdminSignUp2 pg = new pgAdminSignUp2(mainFrame);
+                            mainFrame.Content = pg;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Invalid admin password. Please try again.");
+                            txtPassword.Clear();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
     }
 }

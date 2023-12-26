@@ -8,7 +8,7 @@
         Title="Library Management System" Height="491" Width="800">
 
     <Grid>
-        <Image x:Name="lms_icon" Source="/lms_icon.png" Margin="111,82,0,0" Panel.ZIndex="-4" IsEnabled="False" AutomationProperties.IsOffscreenBehavior="Onscreen" Height="250" VerticalAlignment="Top" HorizontalAlignment="Left" Width="270" />
+        <Image x:Name="lms_icon" Source="/lms_icon.png" Margin="111,82,419,0" Panel.ZIndex="-4" IsEnabled="False" AutomationProperties.IsOffscreenBehavior="Onscreen" Height="250" VerticalAlignment="Top" />
 
         <TextBlock Margin="0,92,86,0" TextWrapping="Wrap" FontFamily="Haettenschweiler" FontSize="72" Text="Library Management System" TextAlignment="Justify" Height="230" VerticalAlignment="Top" HorizontalAlignment="Right" Width="296"/>
 
